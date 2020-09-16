@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group([
+    'as' => 'tariff.',
+    'prefix' => 'tariff',
+    'namespace' => 'App\Http\Controllers'
+], function () {
+    Route::get('all', 'TariffController@all')->name('all');
+});
+
