@@ -1,0 +1,46 @@
+version: '3'
+
+networks:
+  order-form:
+
+services:
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx-order-form
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - order-form
+
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql-order-form
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    env_file:
+      - env-config/mysql.env
+    volumes:
+      - /d/docker-data/mysql:/var/lib/mysql
+    networks:
+      - order-form
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php-order-form
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - order-form
