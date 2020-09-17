@@ -115,6 +115,8 @@
             success: function(response) {
                 $('small.text-danger').text('');
                 $('.toast').toast('show');
+                $('input[type=radio]').attr('disabled', false).prop('checked', false);
+                $('input[type=text]').val('');
                 console.log(response);
             },
             error: function(response) {
