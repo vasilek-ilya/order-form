@@ -18,10 +18,19 @@ Route::get('/', function () {
 });
 
 Route::group([
-    'as' => 'tariff.',
-    'prefix' => 'tariff',
-    'namespace' => 'App\Http\Controllers'
+    'namespace' => 'App\Http\Controllers',
 ], function () {
-    Route::get('all', 'TariffController@all')->name('all');
-});
+    Route::group([
+        'as' => 'tariff.',
+        'prefix' => 'tariff',
+    ], function () {
+        Route::get('all', 'TariffController@all')->name('all');
+    });
 
+    Route::group([
+        'as' => 'order.',
+        'prefix' => 'order',
+    ], function () {
+        Route::post('store', 'OrderController@store')->name('store');
+    });
+});

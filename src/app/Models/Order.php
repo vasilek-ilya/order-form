@@ -11,6 +11,8 @@ class Order extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['day_of_week', 'address'];
+
     public function client()
     {
         return $this->belongsTo(Client::class);
