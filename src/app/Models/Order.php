@@ -9,7 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    const UPDATED_AT = null;
+    public $timestamps = true;
 
     protected $fillable = ['day_of_week', 'address'];
 
